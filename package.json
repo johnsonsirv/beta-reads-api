@@ -1,14 +1,16 @@
 {
-  "name": "bookstore-api",
+  "name": "BRaaS",
   "version": "1.0.0",
-  "description": "",
+  "description": "Book Review as a Service",
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll --verbose --coverage --maxWorkers=1",
-    "start": "nodemon"
+    "start:dev": "nodemon .",
+    "start:prod": "node index.js",
+    "lint": "eslint --ignore-pattern 'node_modules/**'"
   },
   "keywords": [],
-  "author": "",
+  "author": "Victor Okeugo",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
