@@ -1,4 +1,3 @@
-const config = require('config');
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
@@ -9,6 +8,7 @@ const categories = require('./routes/categories');
 const books = require('./routes/books');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
+const config = require('./config');
 
 const app = express();
 
@@ -16,8 +16,8 @@ const app = express();
 app.use(express.json());
 app.use(helmet());
 
-if (!config.get('jwtPrivateKey') && !config.get('jwtExpire')) {
-  console.error('FATAL: jwtPrivateKey & options not defined');
+if ((!config.jwt.secret) && (!config.jwt.expiresIn)) {
+  console.error('FATAL: jwt options not defined');
   process.exit(1);
 }
 
@@ -37,10 +37,8 @@ app.use('*', notFound);
 const intializeDatabase = async () => {
   try {
     // Connect to DB
-    const host = config.get('db.host');
-    const dbName = config.get('db.name');
-    const dbConnectionString = `${host}/${dbName}`;
-    await mongoose.connect(dbConnectionString, {
+    const { mongodb: { url } } = config
+    await mongoose.connect(url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -53,10 +51,8 @@ intializeDatabase();
 
 // PORT
 const port = process.env.PORT || 3000;
-const appName = config.get('name');
-const dbName = config.get('db.name');
 const server = app.listen(port, () => {
-  console.log(`${appName} listening on ${port} with db: ${dbName}`);
+  console.log(`${config.appName} listening on ${port}`);
 });
 
 module.exports = server;

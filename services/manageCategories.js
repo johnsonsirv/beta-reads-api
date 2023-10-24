@@ -1,5 +1,5 @@
-const config = require('config');
 const mongoose = require('mongoose');
+const config = require('../config');
 
 const categorySchema = new mongoose.Schema({
   name: {
@@ -12,10 +12,8 @@ const categorySchema = new mongoose.Schema({
 
 const intializeDatabase = async () => {
   try {
-    const host = config.get('db.host');
-    const dbName = config.get('db.name');
-    const dbConnectionString = `${host}/${dbName}`;
-    await mongoose.connect(dbConnectionString, { useNewUrlParser: true });
+    const { mongodb: { url } } = config;
+    await mongoose.connect(url, { useNewUrlParser: true });
     console.log('Connected to Mongo DB');
   } catch (error) {
     console.error(error.message);
