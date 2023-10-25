@@ -8,7 +8,7 @@ const categories = require('./routes/categories');
 const books = require('./routes/books');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
-const config = require('./config');
+const config = require('./config/index');
 
 const app = express();
 
@@ -37,12 +37,13 @@ app.use('*', notFound);
 const intializeDatabase = async () => {
   try {
     // Connect to DB
-    const { mongodb: { url } } = config
+    const { mongodb: { url } } = config;
     await mongoose.connect(url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error.message);
   }
 };

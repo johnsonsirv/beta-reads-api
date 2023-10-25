@@ -7,7 +7,7 @@
     "test": "NODE_ENV=test jest -c jest.config.js --runInBand --detectOpenHandles --forceExit",
     "start:dev": "nodemon .",
     "start:prod": "node index.js",
-    "lint": "eslint --ignore-pattern 'node_modules/**'"
+    "lint": "eslint . --config .eslintrc"
   },
   "keywords": [],
   "author": "Victor Okeugo",

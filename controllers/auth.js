@@ -8,9 +8,10 @@ const { User } = require('../models/User');
  * @access Public
  */
 
-const validate = req => {
+const validate = (req) => {
   const schema = {
-    email: Joi.string().min(5).max(255).required().email(),
+    email: Joi.string().min(5).max(255).required()
+      .email(),
     password: Joi.string().min(5).max(18).required(),
   };
 

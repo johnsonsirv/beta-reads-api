@@ -17,7 +17,7 @@ const bookSchema = new mongoose.Schema({
 
 const Book = mongoose.model('Book', bookSchema);
 
-const validateBook = book => {
+const validateBook = (book) => {
   const schema = {
     title: Joi.string().required(),
     category: Joi.string().required(),

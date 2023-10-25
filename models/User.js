@@ -2,7 +2,7 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const config = require('../config');
+const config = require('../config/index');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -55,10 +55,11 @@ userSchema.methods.matchPassword = function (plainPassword) {
 
 const User = mongoose.model('User', userSchema);
 
-const validateUser = user => {
+const validateUser = (user) => {
   const schema = {
     name: Joi.string().min(5).max(50).required(),
-    email: Joi.string().min(5).max(255).required().email(),
+    email: Joi.string().min(5).max(255).required()
+      .email(),
     password: Joi.string().min(5).max(18).required(),
   };
 

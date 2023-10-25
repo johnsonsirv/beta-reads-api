@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models/User');
 const asyncHandler = require('./async');
-const config = require('../config');
+const config = require('../config/index');
 
 module.exports.auth = asyncHandler(async (req, res, next) => {
   const { authorization } = req.headers;
@@ -29,7 +29,8 @@ module.exports.auth = asyncHandler(async (req, res, next) => {
     req.user = await User.findById(decoded.id);
 
     next();
-  } catch (error) {
+  }
+  catch (error) {
     return res.status(400).json({ message: 'Invalid Token' });
   }
 });
