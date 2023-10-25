@@ -20,6 +20,7 @@ jobs:
 
       - name:  Npm install eslint
         run: |
+          npm cache clean --force
           npm install
           npm install @microsoft/eslint-formatter-sarif@2.1.7
 
