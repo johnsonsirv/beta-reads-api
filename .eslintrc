@@ -12,6 +12,7 @@
       "brace-style": ["error", "stroustrup"],
       "indent": ["error", 2],
       "max-len": ["error", { "code": 160, "tabWidth": 2 }],
-    }
+    },
+    "ignorePatterns": ["node_modules/"]
   }
   
