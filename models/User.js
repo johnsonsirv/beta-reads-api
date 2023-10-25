@@ -1,8 +1,8 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const config = require('config');
 const bcrypt = require('bcrypt');
+const config = require('../config/index');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -44,8 +44,8 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.generateAuthToken = function () {
   return jwt.sign(
     { id: this._id, role: this.role },
-    config.get('jwtPrivateKey'),
-    { expiresIn: config.get('jwtExpire') },
+    config.jwt.secret,
+    { expiresIn: config.jwt.expiresIn },
   );
 };
 
@@ -55,10 +55,11 @@ userSchema.methods.matchPassword = function (plainPassword) {
 
 const User = mongoose.model('User', userSchema);
 
-const validateUser = user => {
+const validateUser = (user) => {
   const schema = {
     name: Joi.string().min(5).max(50).required(),
-    email: Joi.string().min(5).max(255).required().email(),
+    email: Joi.string().min(5).max(255).required()
+      .email(),
     password: Joi.string().min(5).max(18).required(),
   };
 

@@ -32,12 +32,12 @@ describe('/api/v1/books', () => {
       expect(res.status).toBe(200);
       expect(
         res.body.some(
-          book => book.title === 'Book 1' && book.category === 'Horror',
+          (book) => book.title === 'Book 1' && book.category === 'Horror',
         ),
       ).toBeTruthy();
       expect(
         res.body.some(
-          book => book.title === 'Book 2' && book.category === 'Horror',
+          (book) => book.title === 'Book 2' && book.category === 'Horror',
         ),
       ).toBeTruthy();
     });

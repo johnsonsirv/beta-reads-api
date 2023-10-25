@@ -1,5 +1,5 @@
-const config = require('config');
 const mongoose = require('mongoose');
+const config = require('../config/index');
 
 const categorySchema = new mongoose.Schema({
   name: {
@@ -12,23 +12,23 @@ const categorySchema = new mongoose.Schema({
 
 const intializeDatabase = async () => {
   try {
-    const host = config.get('db.host');
-    const dbName = config.get('db.name');
-    const dbConnectionString = `${host}/${dbName}`;
-    await mongoose.connect(dbConnectionString, { useNewUrlParser: true });
+    const { mongodb: { url } } = config;
+    await mongoose.connect(url, { useNewUrlParser: true });
     console.log('Connected to Mongo DB');
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error.message);
   }
 };
 
 const Category = mongoose.model('Category', categorySchema);
 
-const createCategory = async payload => {
+const createCategory = async (payload) => {
   try {
     const category = new Category(payload);
     return await category.save();
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error.message);
   }
 };
@@ -44,7 +44,7 @@ const run = async () => {
     { name: 'Sci-Fi' },
   ];
 
-  categories.forEach(async cat => {
+  categories.forEach(async (cat) => {
     const result = await createCategory(cat);
     result ? console.log('saved', cat) : console.log('failed', cat);
   });

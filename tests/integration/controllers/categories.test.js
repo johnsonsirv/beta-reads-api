@@ -33,9 +33,9 @@ describe('/api/v1/categories', () => {
       const res = await request(server).get(`${endPoint}`);
 
       expect(res.status).toBe(200);
-      expect(res.body.some(c => c.name === 'Action')).toBeTruthy();
-      expect(res.body.some(c => c.name === 'Biography')).toBeTruthy();
-      expect(res.body.some(c => c.name === 'History')).toBeTruthy();
+      expect(res.body.some((c) => c.name === 'Action')).toBeTruthy();
+      expect(res.body.some((c) => c.name === 'Biography')).toBeTruthy();
+      expect(res.body.some((c) => c.name === 'History')).toBeTruthy();
     });
   });
 
@@ -77,8 +77,8 @@ describe('/api/v1/categories', () => {
       );
 
       expect(res.status).toBe(200);
-      expect(res.body.some(b => b.title === 'Book 1')).toBeTruthy();
-      expect(res.body.some(b => b.title === 'Book 2')).toBeTruthy();
+      expect(res.body.some((b) => b.title === 'Book 1')).toBeTruthy();
+      expect(res.body.some((b) => b.title === 'Book 2')).toBeTruthy();
     });
   });
 });
